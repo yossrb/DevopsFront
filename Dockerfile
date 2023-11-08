@@ -6,4 +6,3 @@ RUN apt update
 RUN apt install npm -y
 RUN npm install -g npm@8.1.0
 RUN npm install -g @angular/cli@12.2.3
-CMD npm run build
