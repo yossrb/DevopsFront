@@ -1,13 +1,9 @@
-### STAGE 1: Définir le répertoire de travail ###
-FROM node:14.17.0-alpine as build
-WORKDIR /usr/src/app
-COPY package.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-
-### STAGE 2: ###
-FROM nginx:1.17.1-alpine
-COPY nginx.conf /etc/nginx/conf.d/nginx.conf
-COPY --from=build /usr/src/app/dist/DevopsFront/usr/share/nginx/html
-EXPOSE 80
+FROM maven:3.8.4-jdk-8-slim
+WORKDIR /usr/lib/env
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Africa/Tunisia
+RUN apt update
+RUN apt install npm -y
+RUN npm install -g npm@8.1.0
+RUN npm install -g @angular/cli@12.2.3
+CMD npm run build
